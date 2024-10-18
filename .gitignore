@@ -1,0 +1,22 @@
+# Python
+*.pyc
+__pycache__/
+
+# Environnements virtuels
+env/
+
+# PostgreSQL 
+*.sql
+*.sqlite3
+
+# Django
+db.sqlite3
+/static/
+media/
+
+# Configuration locale
+*.log
+*.pot
+*.py[cod]
+*.env
+
