@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qis9+o)!=3^hwi4icu*+3p6x&2p3ll)!akf(q!!%=)5v9x9yy0'
+SECRET_KEY = os.getenv('SECRET_KEY', 'o(o8a(3&7t+c19mo8qg4j^c5153pba#oryvqutumfzycpi%hsu')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,14 +76,10 @@ WSGI_APPLICATION = 'olympics.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'site',        # Nom de la base de données
-        'USER': 'olympicsite2',       # Utilisateur PostgreSQL
-        'PASSWORD': 'khameslynda',      # Mot de passe de l'utilisateur PostgreSQL
-        'HOST': 'localhost',             # Où est hébergé PostgreSQL (habituellement localhost)
-        'PORT': '5433',                  # Port par défaut de PostgreSQL
-    }
+    'default': dj_database_url.config(
+        conn_max_age=600, 
+        ssl_require=True
+    )
 }
 
 
@@ -121,6 +118,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
